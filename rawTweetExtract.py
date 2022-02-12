@@ -13,7 +13,7 @@ import time
 from datetime import datetime
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'C:\Users\madec\Documents\de0project')
+os.chdir(r'<INSERT PATH>')
 
 #TODO: Change the file name to the json/text file you saved with YOUR credentials
 with open("apiCredentials.json", "r") as credsfile:
@@ -35,7 +35,8 @@ start = time.time()
 
 # you can play around with range number. See comment below by .items() of why we are doing this
 # 125 iterations gets you 250k tweets (about the max you can pull in 24 hours with the rate limit)
-for i in range (125):
+for i in range (500):
+    time.sleep(1)
     auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
     auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth,wait_on_rate_limit=True)
@@ -48,6 +49,7 @@ for i in range (125):
                                             # the most recent tweets
     
     for tweet in tweets:
+        tweet._json['replicated_at'] = str(datetime.now())
         rawfile.write(str(tweet._json) + '\n')
         tweetCounter += 1
         print ('tweetID#'
