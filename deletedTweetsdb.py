@@ -11,7 +11,7 @@ import ast
 import sqlite3
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'INSERT PATH')
+os.chdir(r'<INSERT PATH>')
 
 conn = sqlite3.connect('de0project.db') # open the connection
 cursor = conn.cursor()
