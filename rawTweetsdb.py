@@ -3,7 +3,7 @@
 RawTweetsdb
 Created on Fri Jan 28 20:30:41 2022
 
-@author: madec
+@author: de0
 """
 
 import os
@@ -11,18 +11,18 @@ import ast
 import sqlite3
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'INSERT PATH')
+os.chdir(r'C:\Users\madec\Documents\de0project')
 
 conn = sqlite3.connect('de0project.db') # open the connection
 cursor = conn.cursor()
 
-rawfile = open('rawTweets_1221.txt', 'r', encoding="utf-8")
+rawfile = open('rawTweetsFeb2022.txt', 'r', encoding="utf-8")
 num_lines = sum(1 for line in rawfile)
 print ('number of tweets to review: ' + str(num_lines))
 print ('\n')
 rawfile.close()
 
-rawfile = open('rawTweets_1221.txt', 'r', encoding="utf-8")
+rawfile = open('rawTweetsFeb2022.txt', 'r', encoding="utf-8")
 counter = 0
 
 for i in range(num_lines):
@@ -96,17 +96,16 @@ for i in range(num_lines):
     print ('\n')
 
 rawfile.close()
-conn.commit()   # finalize inserted data
-conn.close()    # close the connection
 
 #count* query if you are interested...
 # query = '''
 # SELECT COUNT(*) 
-# FROM TweetData;
+# FROM deletedData;
 # '''
 
 # viewResult = cursor.execute(query)
 # viewOutput = viewResult.fetchall()
 # print(viewOutput)
 
-# conn.close()
+conn.commit()   # finalize inserted data
+conn.close()
