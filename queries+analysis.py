@@ -2,7 +2,7 @@
 """
 Created on Sun Mar 27 12:40:22 2022
 Queries+Analysis
-@author: madec
+@author: de0
 """
 
 import sqlite3
