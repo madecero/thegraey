@@ -14,7 +14,7 @@ from twython import Twython, TwythonError, TwythonRateLimitError
 from datetime import datetime
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'<INSERT PATH>')
+os.chdir(r'C:\Users\madec\Documents\de0project')
 
 #TODO: Change the file name to the json/text file you saved with YOUR credentials
 with open("apiCredentials.json", "r") as credsfile:
@@ -32,25 +32,23 @@ TWITTER_ACCESS_TOKEN_SECRET = creds["accessTokenSecret"]
 twitter = Twython(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, 
                   TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 
-#look up random IDs
+#look up random IDs if you want
 # tweet = twitter.show_status(id=1487458062000484358)
 # print (tweet)
 
-# rawfile is the file that has all the tweets we have gathered
 #TODO: Make sure the file name is the same as the file name you used from the rawExtract.py
-rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
+rawfile = open('rawTweets_0322.txt', 'r',encoding="utf-8")
 
 # deletefile is the file that we will write deleted tweets to
-deletefile = open('deletedTweets_raw_0122.txt', 'a', newline='',encoding="utf-8")
+deletefile = open('deletedTweets_raw_0322.txt', 'a', newline='',encoding="utf-8")
 
 # open up the rawfile and see how many lines (tweets) we have.
-# will need this to tell the iterator when to stop
 num_lines = sum(1 for line in rawfile)
 print ('# of tweets to review: ' + str(num_lines))
 rawfile.close() 
 
 # reopen the rawfile to scan for deleted tweets
-rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
+rawfile = open('rawTweets_0322.txt', 'r',encoding="utf-8")
 
 # accumulator to know how many lines(tweets) we have gone through
 liveCounter = 0
@@ -59,7 +57,6 @@ liveCounter = 0
 deadCounter = 0
 
 # if your program ever fails/crashes, use this block to restart where you left off.
-# insert the amount of tweets you have already gone through to pick back up where you left off
 leaveoff = 0
 for i in range (leaveoff):
     rawfile.readline()
@@ -83,7 +80,6 @@ for i in range (num_lines - leaveoff):
         dictObj['TwythonError'] = 'N/A'
     except TwythonRateLimitError:
         # we reached rate limit. Find how long we can wait and make the program wait to avoid a stop error
-        # usually limits around 900 tweets per 15 mins
         remainder = float(twitter.get_lastfunction_header(header='x-rate-limit-reset')) - time.time()
         print ('Waiting on API refresh...')
         print ('Time to wait: ' + str(remainder))
