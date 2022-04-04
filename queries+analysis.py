@@ -21,7 +21,7 @@ nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe('language_detector', last=True)
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'C:\Users\madec\Documents\de0project')
+os.chdir(r'INSERT PATH')
 
 conn = sqlite3.connect('de0project.db') # open the connection
 cursor = conn.cursor()
