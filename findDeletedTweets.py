@@ -14,7 +14,7 @@ from twython import Twython, TwythonError, TwythonRateLimitError
 from datetime import datetime
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'INSERT PATH HERE')
+os.chdir(r'INSERT PATH')
 
 #TODO: Change the file name to the json/text file you saved with YOUR credentials
 with open("apiCredentials.json", "r") as credsfile:
