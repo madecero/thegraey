@@ -3,7 +3,7 @@
 deletedTweetsdb
 Created on Sat Jan 29 12:35:26 2022
 
-@author: madec
+@author: de0
 """
 
 import os
