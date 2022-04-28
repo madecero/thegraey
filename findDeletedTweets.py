@@ -20,6 +20,20 @@ count_other_users = 3
 #TODO: Change to a local directory you want to store the raw txt files
 os.chdir(r'Insert\Path\Here')
 
+#open up the rawfile and see how many lines (tweets) we have.
+# rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
+# num_lines = sum(1 for line in rawfile)
+# print ('# of tweets to review: ' + str(num_lines))
+# rawfile.close() 
+
+#TODO: Make sure the file name is the same as the file name you used from the rawExtract.py
+rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
+
+# TODO: if your program ever fails/crashes, use this block to restart where you left off.
+leaveoff = 0
+for i in range (leaveoff + user_seed):
+    rawfile.readline()
+
 #TODO: Change the file name to the json/text file you saved with YOUR credentials
 with open("apiCredentials.json", "r") as credsfile:
     creds = json.load(credsfile)
@@ -36,18 +50,9 @@ TWITTER_ACCESS_TOKEN_SECRET = creds["accessTokenSecret"]
 twitter = Twython(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, 
                   TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 
-#TODO: Make sure the file name is the same as the file name you used from the rawExtract.py
-rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
-
 #look up random IDs if you want
 # tweet = twitter.show_status(id=1487458062000484358)
 # print (tweet)
-
-#open up the rawfile and see how many lines (tweets) we have.
-# rawfile = open('deletedTweets_raw_0322.txt', 'r',encoding="utf-8")
-# num_lines = sum(1 for line in rawfile)
-# print ('# of tweets to review: ' + str(num_lines))
-# rawfile.close() 
 
 # deletefile is the file that we will write deleted tweets to
 deletefile = open('deletedTweets.txt', 'a', newline='',encoding="utf-8")
@@ -57,11 +62,6 @@ liveCounter = 0
 
 # accumulator to know how many tweets appear to be deleted
 deadCounter = 0
-
-# if your program ever fails/crashes, use this block to restart where you left off.
-leaveoff = 0
-for i in range (leaveoff + user_seed):
-    rawfile.readline()
 
 # magic
 begin = datetime.now()
