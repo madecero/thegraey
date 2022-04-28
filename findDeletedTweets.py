@@ -13,8 +13,12 @@ import time
 from twython import Twython, TwythonError, TwythonRateLimitError
 from datetime import datetime
 
+#TODO: Each user will have a different seed. These variables will change based on # of users
+user_seed = 0
+count_other_users = 3
+
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'<INSERT PATH>')
+os.chdir(r'Insert\Path\Here')
 
 #TODO: Change the file name to the json/text file you saved with YOUR credentials
 with open("apiCredentials.json", "r") as credsfile:
@@ -32,23 +36,21 @@ TWITTER_ACCESS_TOKEN_SECRET = creds["accessTokenSecret"]
 twitter = Twython(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, 
                   TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 
+#TODO: Make sure the file name is the same as the file name you used from the rawExtract.py
+rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
+
 #look up random IDs if you want
 # tweet = twitter.show_status(id=1487458062000484358)
 # print (tweet)
 
-#TODO: Make sure the file name is the same as the file name you used from the rawExtract.py
-rawfile = open('rawTweets_0322.txt', 'r',encoding="utf-8")
+#open up the rawfile and see how many lines (tweets) we have.
+# rawfile = open('deletedTweets_raw_0322.txt', 'r',encoding="utf-8")
+# num_lines = sum(1 for line in rawfile)
+# print ('# of tweets to review: ' + str(num_lines))
+# rawfile.close() 
 
 # deletefile is the file that we will write deleted tweets to
-deletefile = open('deletedTweets_raw_0322.txt', 'a', newline='',encoding="utf-8")
-
-# open up the rawfile and see how many lines (tweets) we have.
-num_lines = sum(1 for line in rawfile)
-print ('# of tweets to review: ' + str(num_lines))
-rawfile.close() 
-
-# reopen the rawfile to scan for deleted tweets
-rawfile = open('rawTweets_0322.txt', 'r',encoding="utf-8")
+deletefile = open('deletedTweets.txt', 'a', newline='',encoding="utf-8")
 
 # accumulator to know how many lines(tweets) we have gone through
 liveCounter = 0
@@ -58,33 +60,33 @@ deadCounter = 0
 
 # if your program ever fails/crashes, use this block to restart where you left off.
 leaveoff = 0
-for i in range (leaveoff):
+for i in range (leaveoff + user_seed):
     rawfile.readline()
 
 # magic
 begin = datetime.now()
 start = time.time()
-for i in range (num_lines - leaveoff):
+while True:
     # read in tweets line by line and store the tweet ID
     print ('number of tweets reviewed: ' + str(liveCounter))
     print ('number of tweets deleted: ' + str(deadCounter))
     print ('System TimeStamp: ' + str(datetime.now()))
     print ('\n')
     line = rawfile.readline()
+    if not line:
+        break
     dictObj = ast.literal_eval(line) # converts the string to a dictionary
     idQuery = dictObj['id']
     try:
         #check twitter API for tweet ID
         tweet = twitter.show_status(id=idQuery)
         liveCounter += 1
-        dictObj['TwythonError'] = 'N/A'
     except TwythonRateLimitError:
         # we reached rate limit. Find how long we can wait and make the program wait to avoid a stop error
         remainder = float(twitter.get_lastfunction_header(header='x-rate-limit-reset')) - time.time()
         print ('Waiting on API refresh...')
         print ('Time to wait: ' + str(remainder))
         time.sleep(remainder + 10) # just to be safe in case the remainder is <0
-        continue
     except TwythonError as e:
         # we found an error - store the tweet in a new txt file because it may have been deleted
         deadCounter += 1
@@ -96,6 +98,9 @@ for i in range (num_lines - leaveoff):
         dictObj['TwythonError'] = errorMessage # add the error message to the dictionary object - to allow for query later
         deletefile.write(str(dictObj) + '\n')
         liveCounter += 1
+    for i in range (count_other_users):
+        rawfile.readline()
+
 
 end = time.time()
 finish = datetime.now()
