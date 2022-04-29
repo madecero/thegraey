@@ -87,6 +87,7 @@ while True:
         print ('Waiting on API refresh...')
         print ('Time to wait: ' + str(remainder))
         time.sleep(remainder + 10) # just to be safe in case the remainder is <0
+        continue
     except TwythonError as e:
         # we found an error - store the tweet in a new txt file because it may have been deleted
         deadCounter += 1
