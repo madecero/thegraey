@@ -23,7 +23,7 @@ download_raw_tweets_file (){
 
 main() {
     # Check if help flag is supplied when invoking script
-    if [[ ( $@ == "--help" ) || $@ == "-h" ]]
+    if [[ ( $@ == "--help" ) || $@ == "-h" || $# == 0 ]]
     then
         usage
 	exit 1
