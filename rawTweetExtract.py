@@ -12,8 +12,8 @@ import os
 import time
 from datetime import datetime
 
-#TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'<INSERT PATH>')
+#Change to a local directory containing rawTweets.txt file
+os.chdir(os.getcwd())
 
 #TODO: Change the file name to the json/text file you saved with YOUR credentials
 with open("apiCredentials.json", "r") as credsfile:

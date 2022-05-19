@@ -20,8 +20,8 @@ def language_detector(nlp, name):
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe('language_detector', last=True)
 
-#TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'<INSERT PATH>')
+#Change to a local directory containing rawTweets.txt file
+os.chdir(os.getcwd())
 
 conn = sqlite3.connect('de0project.db') # open the connection
 cursor = conn.cursor()

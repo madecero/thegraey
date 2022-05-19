@@ -2,3 +2,7 @@ wget-log*
 *.tar.gz
 rawTweets.txt
 apiCredentials.json
+env
+data/
+deletedTweets.txt
+rawTweets.txt

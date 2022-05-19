@@ -14,11 +14,11 @@ from twython import Twython, TwythonError, TwythonRateLimitError
 from datetime import datetime
 
 #TODO: Each user will have a different seed. These variables will change based on # of users
-user_seed = 0
+user_seed = 3
 count_other_users = 3
 
-#TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'Insert\Path\Here')
+#Change to a local directory containing rawTweets.txt file
+os.chdir(os.getcwd())
 
 #open up the rawfile and see how many lines (tweets) we have.
 # rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
