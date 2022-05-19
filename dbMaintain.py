@@ -8,7 +8,7 @@ Created on Thu Nov 18 14:21:10 2021
 import sqlite3
 import os
 
-os.chdir(r'<INSERT PATH>')
+os.chdir(os.getcwd())
 
 conn = sqlite3.connect('de0project.db') # open the connection
 cursor = conn.cursor()
