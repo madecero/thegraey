@@ -19,6 +19,6 @@ st.title("Below are tweets that have been censored by twitter. Reader discretion
 tweetfile = open('censoredtweets.txt', 'r', newline='',encoding="utf-8")
 
 for i in tweetfile:
-    st.write(str(i[0]) + '\n')
+    st.write(str(i) + '\n')
 
 tweetfile.close()
