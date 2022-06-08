@@ -14,5 +14,5 @@ st.set_page_config(
     page_icon="twitterbanned.png",
 )
 
-st.title("Below are tweets that have been censored by twitter. Reader Discretion is strongly advised.")
+st.title("Below are tweets that have been censored by twitter. Reader discretion is strongly advised.")
 
