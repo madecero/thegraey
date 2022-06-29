@@ -14,7 +14,7 @@ st.set_page_config(
     page_icon="twitterbanned.png",
 )
 
-st.title("Below are tweets that have been censored by twitter. Reader discretion is strongly advised.")
+st.title("Censored Tweets! Reader discretion is strongly advised.")
 
 tweetfile = open('censoredtweets.txt', 'r', newline='',encoding="utf-8")
 
