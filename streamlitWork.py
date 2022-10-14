@@ -19,7 +19,7 @@ st.title("Censored Tweets! Reader discretion is strongly advised.")
 tweetfile = open('censoredtweets.txt', 'r', newline='',encoding="utf-8")
 
 for i in tweetfile:
-    st.image("twitterbanned.png")
+    st.image("twitterBanned.png")
     st.write(str(i) + '\n')
 
 tweetfile.close()
