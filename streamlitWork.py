@@ -11,7 +11,7 @@ VERSION = "0.1"
 
 st.set_page_config(
     page_title="CensoredTweets",
-    page_icon="twitterbanned.png",
+    page_icon="twitterBanned.png",
 )
 
 st.title("Censored Tweets! Reader discretion is strongly advised.")
