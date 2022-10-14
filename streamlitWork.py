@@ -16,7 +16,7 @@ st.set_page_config(
 
 st.title("Censored Tweets! Reader discretion is strongly advised.")
 
-tweetfile = open('censoredtweets.txt', 'r', newline='',encoding="utf-8")
+tweetfile = open('censoredtweets.rtf', 'r', newline='',encoding="utf-8")
 
 for i in tweetfile:
     st.write(str(i) + '\n')
