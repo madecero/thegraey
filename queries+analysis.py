@@ -122,7 +122,7 @@ ORDER BY ID DESC
 viewResult = cursor.execute(violatedTweets)
 viewOutput = viewResult.fetchall()
 for i in viewOutput:
-    writefile.write('\n\n\n' + str(i[0]) + '     ' + '(@' + str(i[1]) + ')' + '  -  '  + str(i[2]) + '\n')
+    writefile.write('\n\n\n' + '**' + str(i[0]) + '**' + '     ' + '@' + str(i[1]) + '  -  '  + str(i[2]) + '\n')
     writefile.write(str(i[3]))
 
 # # #write to a file for a wordcloud to reference
