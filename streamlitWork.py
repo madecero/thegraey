@@ -16,6 +16,7 @@ st.set_page_config(
 
 #SIDEBAR
 with st.sidebar:
+    st.header("Censored Tweets!")
     st.image("twitterBanned.png")
     st.info(
         "The tweets you see on this page have been deleted by Twitter for violating the [rules](https://help.twitter.com/en/rules-and-policies/twitter-rules) of their platform\n\n"
@@ -23,8 +24,6 @@ with st.sidebar:
         "Reader discretion is strongly advised\n\n"
         "Check out the code: [Github](https://github.com/thegraey/deletedTweets)\n\n"
         "To learn more, check out my blog: [inthegraey.com](https://inthegraey.com)")
-
-st.title("Censored Tweets!")
 
 tweetfile = open('censoredtweets.txt', 'r', newline='',encoding="utf-8")
 
