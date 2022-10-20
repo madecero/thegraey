@@ -22,7 +22,7 @@ with st.sidebar:
         "I do not condone hate speech. The purpose of this page is to inform the public of what Twitter is deeming to be unacceptable for thier platform\n"
         "Reader discretion is strongly advised\n"
         "Check out the code: [Github](https://github.com/thegraey/deletedTweets)\n"
-        "To learn more, check out my blog: [inthegraey.com](https://inthegraey.com)"
+        "To learn more, check out my blog: [inthegraey.com](https://inthegraey.com)")
 
 st.title("Censored Tweets!")
 
