@@ -2,7 +2,7 @@
 """
 Created on Sun Mar 27 12:40:22 2022
 Queries+Analysis
-@author: de0
+@author: madec
 """
 
 import sqlite3
@@ -12,19 +12,22 @@ import spacy
 from spacy_langdetect import LanguageDetector
 from spacy.language import Language
 
-#nlp to determine the word is english
-@Language.factory('language_detector')
-def language_detector(nlp, name):
-    return LanguageDetector()
+# #nlp to determine the word is english
+# @Language.factory('language_detector')
+# def language_detector(nlp, name):
+#     return LanguageDetector()
 
-nlp = spacy.load("en_core_web_sm")
-nlp.add_pipe('language_detector', last=True)
+# nlp = spacy.load("en_core_web_sm")
+# nlp.add_pipe('language_detector', last=True)
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'<INSERT PATH>')
+os.chdir(r'C:\Users\madec\Documents\de0project')
 
 conn = sqlite3.connect('de0project.db') # open the connection
 cursor = conn.cursor()
+
+#open file to write to
+writefile = open('censoredtweets.txt', 'w',encoding="utf-8")
 
 #all_tweets_count
 allTweetsCount = '''
@@ -40,7 +43,7 @@ print (viewOutput)
 #deleted_tweets_count
 deletedTweetsCount = '''
 SELECT COUNT(*)
-FROM deletedData
+FROM deleteView
 ;
 '''
 
@@ -76,19 +79,21 @@ for i in viewOutput:
 #the following queries are commented out - they are only here for reference refer to the query_for_wordclouds+wordcounts section to continue
 
 #violated tweets
-# violatedTweets = '''
-# SELECT TEXT
-# FROM TweetData
-# INNER JOIN deletedData ON ID = tweetID
-# WHERE deleteReason = 'Twitter API returned a 404 (Not Found), This Tweet is no longer available because it violated the Twitter Rules.'
-# ;
-# '''
+violatedTweets = '''
+SELECT Name, ScreenName, CreatedAt, TEXT
+FROM deleteView
+WHERE deleteReason = 'Twitter API returned a 404 (Not Found), This Tweet is no longer available because it violated the Twitter Rules.'
+ORDER BY ID DESC
+;
+'''
 
 # viewResult = cursor.execute(violatedTweets)
 # viewOutput = viewResult.fetchall()
 # for i in viewOutput:
-#     print (i)
-
+#     writefile.write('\n\n')
+#     writefile.write(str(i[0]) + '\n')
+#     writefile.write(str(i[1]) + '\n')
+    
 #deletedURLs
 # deletedURLs = '''
 # SELECT URL
@@ -106,62 +111,73 @@ for i in viewOutput:
 #     print (i)
 
 #query_for_wordclouds+wordcounts
-query = '''
-SELECT HashTag
-FROM HashTags
-;
-'''
+# query = '''
+# SELECT ScreenName
+# FROM UserData
+# WHERE ScreenName = 'charliekirk11'
+# ;
+# '''
 
-viewResult = cursor.execute(query)
+#print results of query
+viewResult = cursor.execute(violatedTweets)
 viewOutput = viewResult.fetchall()
-
-#write to a file for a wordcloud to reference
-file = open('deletedHTsWC.txt', 'w', encoding="utf-8", newline = '')
-
 for i in viewOutput:
-    for k in i:
-        text = str(k)
-        doc = nlp(text)
-        detect_language = doc._.language
-        if detect_language['language'] == 'en':
-            file.write(str(k) + ' ')
+    writefile.write('\n\n\n' + str(i[0]) + '     ' + '(@' + str(i[1]) + ')' + '  -  '  + str(i[2]) + '\n')
+    writefile.write(str(i[3]))
 
-file.close()
+# # #write to a file for a wordcloud to reference
+# file = open('suspendedTweets.txt', 'w', encoding="utf-8", newline = '')
 
-#exlude words we don't care about
-stopWords = set(STOPWORDS)
-customList = ['RT', 't', 'co', 'u', 'retweet', 'one', 'now', 's', 'm', 'dm', 'will', 'end', 'https', 'ur', 'etc', 'amp',
-              'n', 'nhttps']
+# # for i in viewOutput:
+# #     file.write(str(i) + '\n')
 
-for i in customList:
-    stopWords.add(i)
+# # file.close()
 
-#read in file for wordcloud
-file = open('deletedHTsWC.txt', 'r', encoding="utf-8", newline = '')
-text = file.read()
-textList = text.split()
-file.close()
+# for i in viewOutput:
+#     for k in i:
+#         text = str(k)
+#         doc = nlp(text)
+#         detect_language = doc._.language
+#         if detect_language['language'] == 'en':
+#             file.write(str(k) + ' ')
 
-#wordcloud image
-word_cloud = WordCloud(max_words = 23, stopwords = stopWords).generate(text)
-img = word_cloud.to_image()
-img.show()
+# file.close()
 
-#generate word counts
-hashTable = {}
-for word in textList:
-    if word.lower() not in stopWords:
-        if word.lower() not in hashTable:
-            hashTable[word.lower()] = 1
-        else:
-            hashTable[word.lower()] += 1
+# #exlude words we don't care about
+# stopWords = set(STOPWORDS)
+# customList = ['RT', 't', 'co', 'u', 'retweet', 'one', 'now', 's', 'm', 'dm', 'will', 'end', 'https', 'ur', 'etc', 'amp',
+#               'n', 'nhttps']
 
-tuplesList = sorted(hashTable.items(), reverse = True, key = lambda x: x[1])
-newList = []
-for i in tuplesList:
-    newList.append((i[0], i[1]))
-for t in newList[:100]:
-    print (t)
+# for i in customList:
+#     stopWords.add(i)
 
+# #read in file for wordcloud
+# file = open('suspendedTweets.txt', 'r', encoding="utf-8", newline = '')
+# text = file.read()
+# textList = text.split()
+# file.close()
+
+# #wordcloud image
+# word_cloud = WordCloud(background_color = 'white', max_words = 23, stopwords = stopWords).generate(text)
+# img = word_cloud.to_image()
+# img.show()
+
+# #generate word counts
+# hashTable = {}
+# for word in textList:
+#     if word.lower() not in stopWords:
+#         if word.lower() not in hashTable:
+#             hashTable[word.lower()] = 1
+#         else:
+#             hashTable[word.lower()] += 1
+
+# tuplesList = sorted(hashTable.items(), reverse = True, key = lambda x: x[1])
+# newList = []
+# for i in tuplesList:
+#     newList.append((i[0], i[1]))
+# for t in newList[:100]:
+#     print (t)
+
+writefile.close()
 conn.commit()   # finalize inserted data
 conn.close()    # close the connection
