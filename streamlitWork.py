@@ -19,7 +19,7 @@ with st.sidebar:
     st.header("Censored Tweets!")
     st.image("twitterBanned.png")
     st.info(
-        "NOTE: Twitter has increased the costs of their API, and this site is no longer being supported. Thanks Elon. /n/n"
+        "NOTE: Twitter has increased the costs of their API, and this site is no longer being supported. Thanks Elon. \n\n"
         "The tweets you see on this page have been deleted by Twitter for violating the [rules](https://help.twitter.com/en/rules-and-policies/twitter-rules) of their platform.\n\n"
         "I do not condone hate speech. The purpose of this page is to inform the public of what Twitter is deeming to be unacceptable for thier platform.\n\n"
         "Reader discretion is strongly advised.\n\n\n\n"
