@@ -1,0 +1,21 @@
+# Credentials
+apiCredentials.json
+.env
+
+# Local data (tens of millions of tweets, never committed)
+*.db
+rawTweets*.txt
+deletedTweets*.txt
+suspendedTweets.txt
+projectdf.csv
+
+# Python and Jupyter
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
