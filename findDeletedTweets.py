@@ -18,7 +18,7 @@ user_seed = 0
 count_other_users = 3
 
 #TODO: Change to a local directory you want to store the raw txt files
-os.chdir(r'Insert\Path\Here')
+os.chdir(r'<INSERT PATH>')
 
 #open up the rawfile and see how many lines (tweets) we have.
 # rawfile = open('rawTweets.txt', 'r',encoding="utf-8")
