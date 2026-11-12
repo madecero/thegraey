@@ -99,6 +99,10 @@ The collection scripts read API keys from `apiCredentials.json`, which is ignore
 └── requirements.txt
 ```
 
+## License
+
+The code is released under the [MIT License](LICENSE). Tweet text in `censoredtweets.txt` and in the notebook outputs belongs to its original authors and is included for research and commentary.
+
 ## Author
 
 Michael DeCero. [deceroai.com](https://deceroai.com) · [GitHub](https://github.com/madecero)
